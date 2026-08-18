@@ -1,12 +1,12 @@
 // ==========================================
-// TIC TAC TOE - COMPLETE JAVASCRIPT
+// TIC TAC TOE - CORRECTED SCRIPT.JS
 // ==========================================
 
 
-// Get all cells
+// Get all 9 cells
 const cells = document.querySelectorAll(".cell");
 
-// Get text elements
+// Get display elements
 const turnText = document.getElementById("turnText");
 const scoreX = document.getElementById("scoreX");
 const scoreO = document.getElementById("scoreO");
@@ -17,10 +17,14 @@ const resetScoreBtn = document.getElementById("resetScoreBtn");
 
 
 // ==========================================
-// GAME VARIABLES
+// GAME DATA
 // ==========================================
 
-let board = ["", "", "", "", "", "", "", "",];
+let board = [
+    "", "", "",
+    "", "", "",
+    "", "", ""
+];
 
 let currentPlayer = "X";
 
@@ -54,37 +58,51 @@ const winningCombinations = [
 
 
 // ==========================================
-// CELL CLICK
+// HANDLE CELL CLICK
 // ==========================================
 
 function handleCellClick(event) {
 
+    // Get the actual clicked cell
     const cell = event.currentTarget;
 
-    const index = Number(cell.dataset.index);
+    // Get its index
+    const index = parseInt(cell.dataset.index, 10);
 
 
-    // Don't allow clicking occupied cells
-    if (board[index] !== "") {
+    // Safety check
+    if (isNaN(index)) {
         return;
     }
 
 
-    // Don't allow clicking after game ends
+    // Safety check for valid index
+    if (index < 0 || index > 8) {
+        return;
+    }
+
+
+    // Don't allow move if game is over
     if (!gameActive) {
         return;
     }
 
 
-    // Store player's move
+    // Don't allow already occupied cell
+    if (board[index] !== "") {
+        return;
+    }
+
+
+    // Store move
     board[index] = currentPlayer;
 
 
-    // Display player's symbol
+    // Display move
     cell.textContent = currentPlayer;
 
 
-    // Add correct CSS class
+    // Add correct class
     if (currentPlayer === "X") {
 
         cell.classList.add("x");
@@ -96,7 +114,7 @@ function handleCellClick(event) {
     }
 
 
-    // Check game
+    // Check result
     checkResult();
 }
 
@@ -110,8 +128,10 @@ function checkResult() {
     let winningCombination = null;
 
 
-    // Check all combinations
-    for (const combination of winningCombinations) {
+    // Check every winning combination
+    for (let i = 0; i < winningCombinations.length; i++) {
+
+        const combination = winningCombinations[i];
 
         const a = combination[0];
         const b = combination[1];
@@ -121,7 +141,7 @@ function checkResult() {
         if (
             board[a] !== "" &&
             board[a] === board[b] &&
-            board[a] === board[c]
+            board[b] === board[c]
         ) {
 
             winningCombination = combination;
@@ -141,11 +161,13 @@ function checkResult() {
 
 
         // Highlight winning cells
-        winningCombination.forEach(function(index) {
+        for (let i = 0; i < winningCombination.length; i++) {
 
-            cells[index].classList.add("winning-cell");
+            const winningIndex = winningCombination[i];
 
-        });
+            cells[winningIndex].classList.add("winning-cell");
+
+        }
 
 
         // Update score
@@ -178,7 +200,21 @@ function checkResult() {
     // DRAW
     // ======================================
 
-    if (!board.includes("")) {
+    let boardFull = true;
+
+
+    for (let i = 0; i < board.length; i++) {
+
+        if (board[i] === "") {
+
+            boardFull = false;
+
+            break;
+        }
+    }
+
+
+    if (boardFull) {
 
         gameActive = false;
 
@@ -193,10 +229,15 @@ function checkResult() {
     // CHANGE PLAYER
     // ======================================
 
-    currentPlayer =
-        currentPlayer === "X"
-            ? "O"
-            : "X";
+    if (currentPlayer === "X") {
+
+        currentPlayer = "O";
+
+    } else {
+
+        currentPlayer = "X";
+
+    }
 
 
     turnText.textContent =
@@ -205,26 +246,20 @@ function checkResult() {
 
 
 // ==========================================
-// RESTART CURRENT GAME
+// RESTART GAME
 // ==========================================
 
 function restartGame() {
 
-    // Clear board
+    // Empty all 9 positions
     board = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "", "", "",
+        "", "", "",
+        "", "", ""
     ];
 
 
-    // X starts again
+    // Start with X
     currentPlayer = "X";
 
 
@@ -232,21 +267,21 @@ function restartGame() {
     gameActive = true;
 
 
-    // Clear all cells
-    cells.forEach(function(cell) {
+    // Clear all 9 cells
+    for (let i = 0; i < cells.length; i++) {
 
-        cell.textContent = "";
+        cells[i].textContent = "";
 
-        cell.classList.remove("x");
+        cells[i].classList.remove("x");
 
-        cell.classList.remove("o");
+        cells[i].classList.remove("o");
 
-        cell.classList.remove("winning-cell");
+        cells[i].classList.remove("winning-cell");
 
-    });
+    }
 
 
-    // Update message
+    // Update turn
     turnText.textContent =
         "Player X's Turn";
 }
@@ -258,23 +293,22 @@ function restartGame() {
 
 function resetScore() {
 
-    // Reset scores
     xScore = 0;
+
     oScore = 0;
 
 
-    // Update display
     scoreX.textContent = "0";
+
     scoreO.textContent = "0";
 
 
-    // Restart board
     restartGame();
 }
 
 
 // ==========================================
-// CELL EVENTS
+// ADD CLICK EVENT TO ALL 9 CELLS
 // ==========================================
 
 cells.forEach(function(cell) {
