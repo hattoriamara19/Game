@@ -1,13 +1,25 @@
-/* ================================
-   TIC TAC TOE - STYLE.CSS
-   ================================ */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
+
+:root {
+    --bg-dark: #080b18;
+    --bg-light: #151a32;
+    --card: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.15);
+    --text: #ffffff;
+    --muted: #b8bfd8;
+    --x-color: #ff4d6d;
+    --o-color: #35a7ff;
+    --win-color: #28e98a;
+}
+
+
+/* ==========================================
+   BODY
+   ========================================== */
 
 body {
     min-height: 100vh;
@@ -16,231 +28,558 @@ body {
     justify-content: center;
     align-items: center;
 
-    background: linear-gradient(135deg, #141e30, #243b55);
+    padding: 20px;
 
-    color: white;
+    color: var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 77, 109, 0.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(53, 167, 255, 0.18),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg-dark),
+            var(--bg-light)
+        );
+
+    overflow-x: hidden;
 }
 
 
-/* Main Game Container */
+/* ==========================================
+   MAIN GAME CONTAINER
+   ========================================== */
 
 .game-container {
-    width: 95%;
-    max-width: 420px;
+    width: 100%;
+    max-width: 460px;
+
+    padding: 30px 25px;
 
     text-align: center;
 
-    padding: 25px;
+    position: relative;
 
-    background: rgba(255, 255, 255, 0.1);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.11),
+            rgba(255, 255, 255, 0.035)
+        );
 
-    border-radius: 20px;
+    border: 1px solid var(--card-border);
+
+    border-radius: 28px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.4);
+        0 25px 60px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    animation: containerAppear 0.7s ease;
 }
 
 
-/* Game Title */
+/* Top shine */
+
+.game-container::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 12%;
+
+    width: 76%;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+}
+
+
+/* ==========================================
+   TITLE
+   ========================================== */
 
 h1 {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 
-    font-size: 38px;
+    font-size: 42px;
 
-    font-weight: bold;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #8fd3ff,
+            #ffffff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    text-shadow:
+        0 0 25px rgba(255, 255, 255, 0.15);
+
+    animation: titleGlow 3s ease-in-out infinite;
 }
 
 
-/* Turn Text */
+/* ==========================================
+   TURN TEXT
+   ========================================== */
 
 .turn {
-    font-size: 20px;
+    display: inline-block;
 
-    margin: 15px 0;
+    margin: 12px 0 20px;
 
-    font-weight: bold;
+    padding: 8px 18px;
+
+    border-radius: 30px;
+
+    color: var(--muted);
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
-/* ================================
+/* ==========================================
    SCORE BOARD
-   ================================ */
+   ========================================== */
 
 .score-board {
     display: flex;
 
-    justify-content: space-around;
+    justify-content: center;
 
-    gap: 10px;
+    gap: 14px;
 
-    margin-bottom: 20px;
-
-    font-size: 18px;
+    margin-bottom: 22px;
 }
 
 .score {
-    padding: 10px 15px;
+    min-width: 145px;
 
-    background: rgba(255, 255, 255, 0.15);
+    padding: 12px 16px;
 
-    border-radius: 10px;
-
-    min-width: 120px;
-}
-
-
-/* ================================
-   GAME BOARD
-   ================================ */
-
-.board {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 10px;
-
-    width: 100%;
-
-    max-width: 330px;
-
-    margin: auto;
-}
-
-
-/* Individual Cell */
-
-.cell {
-    aspect-ratio: 1 / 1;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: white;
-
-    color: #222;
-
-    font-size: 55px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-
-/* Cell Hover */
-
-.cell:hover {
-    transform: scale(1.04);
-
-    background: #eeeeee;
-}
-
-
-/* X */
-
-.cell.x {
-    color: #e63946;
-}
-
-
-/* O */
-
-.cell.o {
-    color: #2196f3;
-}
-
-
-/* Winning Cells */
-
-.winning-cell {
-    background: #90ee90 !important;
-
-    color: #111 !important;
-
-    animation: winner 0.5s ease-in-out;
-}
-
-
-/* Winner Animation */
-
-@keyframes winner {
-
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-
-}
-
-
-/* ================================
-   BUTTONS
-   ================================ */
-
-.buttons {
-    margin-top: 25px;
-}
-
-
-button.control {
-    padding: 12px 22px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
+    border-radius: 16px;
 
     font-size: 16px;
 
-    font-weight: bold;
+    font-weight: 700;
 
-    margin: 5px;
+    background:
+        rgba(255, 255, 255, 0.07);
 
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
-    color: #222;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-    transition: 0.2s;
+    transition: 0.25s ease;
+}
+
+.score:first-child {
+    color: var(--x-color);
+
+    box-shadow:
+        0 0 20px rgba(255, 77, 109, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.score:last-child {
+    color: var(--o-color);
+
+    box-shadow:
+        0 0 20px rgba(53, 167, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.score:hover {
+    transform: translateY(-3px);
 }
 
 
-/* Button Hover */
+/* ==========================================
+   GAME BOARD
+   ========================================== */
+
+.board {
+    width: 100%;
+
+    max-width: 360px;
+
+    margin: auto;
+
+    padding: 10px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(0, 0, 0, 0.16);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        inset 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================
+   CELLS
+   ========================================== */
+
+.cell {
+    position: relative;
+
+    aspect-ratio: 1 / 1;
+
+    border: 0;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #e8edf5
+        );
+
+    color: #172033;
+
+    font-size: 58px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 7px 15px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 white;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* Cell shine */
+
+.cell::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: 0.5s;
+}
+
+.cell:hover::before {
+    left: 130%;
+}
+
+
+/* Hover */
+
+.cell:hover {
+    transform: translateY(-4px) scale(1.025);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Click */
+
+.cell:active {
+    transform: scale(0.95);
+}
+
+
+/* ==========================================
+   X
+   ========================================== */
+
+.cell.x {
+    color: var(--x-color);
+
+    text-shadow:
+        0 0 15px rgba(255, 77, 109, 0.35);
+
+    animation: symbolPop 0.25s ease;
+}
+
+
+/* ==========================================
+   O
+   ========================================== */
+
+.cell.o {
+    color: var(--o-color);
+
+    text-shadow:
+        0 0 15px rgba(53, 167, 255, 0.35);
+
+    animation: symbolPop 0.25s ease;
+}
+
+
+/* ==========================================
+   WINNING CELLS
+   ========================================== */
+
+.winning-cell {
+    background:
+        linear-gradient(
+            145deg,
+            #37f29a,
+            #17c978
+        ) !important;
+
+    color: #061b12 !important;
+
+    box-shadow:
+        0 0 15px rgba(40, 233, 138, 0.55),
+        0 0 35px rgba(40, 233, 138, 0.3),
+        inset 0 0 15px rgba(255, 255, 255, 0.35) !important;
+
+    animation:
+        winningCell 0.65s ease-in-out infinite alternate;
+}
+
+
+/* ==========================================
+   BUTTON AREA
+   ========================================== */
+
+.buttons {
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+}
+
+
+/* ==========================================
+   CONTROL BUTTONS
+   ========================================== */
+
+button.control {
+    padding: 12px 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Button hover */
 
 button.control:hover {
-    background: #ddd;
+    transform: translateY(-3px);
 
-    transform: translateY(-2px);
+    background:
+        rgba(255, 255, 255, 0.17);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 
-/* Button Click */
+/* Button active */
 
 button.control:active {
     transform: scale(0.95);
 }
 
 
-/* ================================
-   MOBILE RESPONSIVE
-   ================================ */
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
 
-@media (max-width: 500px) {
+@keyframes containerAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+
+@keyframes symbolPop {
+
+    0% {
+        transform: scale(0.3);
+
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes winningCell {
+
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
 
     .game-container {
-        padding: 20px;
+        padding: 25px 18px;
+
+        border-radius: 24px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    .board {
+        max-width: 340px;
+    }
+
+    .cell {
+        font-size: 52px;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 430px) {
+
+    .game-container {
+        padding: 22px 14px;
     }
 
     h1 {
@@ -248,38 +587,52 @@ button.control:active {
     }
 
     .turn {
-        font-size: 18px;
-    }
+        font-size: 15px;
 
-    .cell {
-        font-size: 45px;
+        padding: 7px 14px;
     }
 
     .score-board {
-        font-size: 15px;
+        gap: 8px;
     }
 
     .score {
-        min-width: 100px;
+        min-width: 0;
 
+        flex: 1;
+
+        padding: 10px 7px;
+
+        font-size: 13px;
+    }
+
+    .board {
         padding: 8px;
+
+        gap: 8px;
+
+        border-radius: 18px;
+    }
+
+    .cell {
+        border-radius: 14px;
+
+        font-size: 45px;
     }
 
     button.control {
-        font-size: 14px;
+        padding: 10px 14px;
 
-        padding: 10px 15px;
+        font-size: 13px;
     }
 }
 
 
-/* Small Phones */
+/* ==========================================
+   VERY SMALL PHONES
+   ========================================== */
 
-@media (max-width: 350px) {
-
-    .game-container {
-        padding: 15px;
-    }
+@media (max-width: 340px) {
 
     h1 {
         font-size: 28px;
@@ -289,8 +642,17 @@ button.control:active {
         font-size: 38px;
     }
 
-    .score {
-        min-width: 90px;
+    .board {
+        gap: 6px;
     }
 
+    .score {
+        font-size: 12px;
+    }
+
+    button.control {
+        padding: 9px 11px;
+
+        font-size: 12px;
+    }
 }
