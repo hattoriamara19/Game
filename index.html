@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Tic Tac Toe</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -14,13 +16,17 @@
         <h1>Tic Tac Toe</h1>
 
         <div class="score-board">
+
             <div class="score">
-                Player X: <span id="scoreX">0</span>
+                Player X:
+                <span id="scoreX">0</span>
             </div>
 
             <div class="score">
-                Player O: <span id="scoreO">0</span>
+                Player O:
+                <span id="scoreO">0</span>
             </div>
+
         </div>
 
         <div class="turn" id="turnText">
@@ -29,244 +35,35 @@
 
         <div class="board" id="board">
 
-            <button class="cell" data-index="0"></button>
-            <button class="cell" data-index="1"></button>
-            <button class="cell" data-index="2"></button>
+            <button type="button" class="cell" data-index="0"></button>
+            <button type="button" class="cell" data-index="1"></button>
+            <button type="button" class="cell" data-index="2"></button>
 
-            <button class="cell" data-index="3"></button>
-            <button class="cell" data-index="4"></button>
-            <button class="cell" data-index="5"></button>
+            <button type="button" class="cell" data-index="3"></button>
+            <button type="button" class="cell" data-index="4"></button>
+            <button type="button" class="cell" data-index="5"></button>
 
-            <button class="cell" data-index="6"></button>
-            <button class="cell" data-index="7"></button>
-            <button class="cell" data-index="8"></button>
+            <button type="button" class="cell" data-index="6"></button>
+            <button type="button" class="cell" data-index="7"></button>
+            <button type="button" class="cell" data-index="8"></button>
 
         </div>
 
         <div class="buttons">
-            <button class="control" id="restartBtn">
+
+            <button type="button" class="control" id="restartBtn">
                 Restart Game
             </button>
 
-            <button class="control" id="resetScoreBtn">
+            <button type="button" class="control" id="resetScoreBtn">
                 Reset Score
             </button>
+
         </div>
 
     </div>
 
+    <script src="script.js"></script>
 
-    <script>
-
-        // Get all cells
-        const cells = document.querySelectorAll(".cell");
-
-        // Get display elements
-        const turnText = document.getElementById("turnText");
-        const scoreX = document.getElementById("scoreX");
-        const scoreO = document.getElementById("scoreO");
-
-        // Buttons
-        const restartBtn = document.getElementById("restartBtn");
-        const resetScoreBtn = document.getElementById("resetScoreBtn");
-
-
-        // Game variables
-        let board = ["", "", "", "", "", "", "", "",];
-
-        let currentPlayer = "X";
-
-        let gameActive = true;
-
-        let xScore = 0;
-        let oScore = 0;
-
-
-        // All possible winning combinations
-        const winningCombinations = [
-
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-
-            [0, 4, 8],
-            [2, 4, 6]
-
-        ];
-
-
-        // Handle cell click
-        function handleCellClick(event) {
-
-            const cell = event.target;
-
-            const index = cell.getAttribute("data-index");
-
-            // Do nothing if cell already filled
-            if (board[index] !== "" || !gameActive) {
-                return;
-            }
-
-
-            // Put player's symbol
-            board[index] = currentPlayer;
-
-            cell.textContent = currentPlayer;
-
-
-            // Add class
-            if (currentPlayer === "X") {
-                cell.classList.add("x");
-            } else {
-                cell.classList.add("o");
-            }
-
-
-            // Check winner
-            checkResult();
-        }
-
-
-        // Check game result
-        function checkResult() {
-
-            let winnerFound = false;
-
-
-            for (let combination of winningCombinations) {
-
-                const a = combination[0];
-                const b = combination[1];
-                const c = combination[2];
-
-
-                if (
-                    board[a] !== "" &&
-                    board[a] === board[b] &&
-                    board[a] === board[c]
-                ) {
-
-                    winnerFound = true;
-
-                    // Highlight winning cells
-                    cells[a].classList.add("winning-cell");
-                    cells[b].classList.add("winning-cell");
-                    cells[c].classList.add("winning-cell");
-
-                    break;
-                }
-            }
-
-
-            // Winner found
-            if (winnerFound) {
-
-                gameActive = false;
-
-                if (currentPlayer === "X") {
-
-                    xScore++;
-
-                    scoreX.textContent = xScore;
-
-                    turnText.textContent = "🎉 Player X Wins!";
-
-                } else {
-
-                    oScore++;
-
-                    scoreO.textContent = oScore;
-
-                    turnText.textContent = "🎉 Player O Wins!";
-                }
-
-                return;
-            }
-
-
-            // Check draw
-            if (!board.includes("")) {
-
-                gameActive = false;
-
-                turnText.textContent = "🤝 Game Draw!";
-
-                return;
-            }
-
-
-            // Change player
-            currentPlayer =
-                currentPlayer === "X" ? "O" : "X";
-
-
-            turnText.textContent =
-                "Player " + currentPlayer + "'s Turn";
-        }
-
-
-        // Restart current game
-        function restartGame() {
-
-            board = ["", "", "", "", "", "", "", ""];
-
-            currentPlayer = "X";
-
-            gameActive = true;
-
-
-            cells.forEach(cell => {
-
-                cell.textContent = "";
-
-                cell.classList.remove("x");
-
-                cell.classList.remove("o");
-
-                cell.classList.remove("winning-cell");
-
-            });
-
-
-            turnText.textContent = "Player X's Turn";
-        }
-
-
-        // Reset scores
-        function resetScore() {
-
-            xScore = 0;
-
-            oScore = 0;
-
-            scoreX.textContent = "0";
-
-            scoreO.textContent = "0";
-
-            restartGame();
-        }
-
-
-        // Add click event to every cell
-        cells.forEach(cell => {
-
-            cell.addEventListener("click", handleCellClick);
-
-        });
-
-
-        // Restart button
-        restartBtn.addEventListener("click", restartGame);
-
-
-        // Reset score button
-        resetScoreBtn.addEventListener("click", resetScore);
-
-    </script>
-<script src="script.js"></script>
 </body>
 </html>
