@@ -1,14 +1,13 @@
 // ==========================================
-// TIC TAC TOE - SCRIPT.JS
+// TIC TAC TOE - COMPLETE JAVASCRIPT
 // ==========================================
 
 
-// Get all game cells
+// Get all cells
 const cells = document.querySelectorAll(".cell");
 
-// Get game information elements
+// Get text elements
 const turnText = document.getElementById("turnText");
-
 const scoreX = document.getElementById("scoreX");
 const scoreO = document.getElementById("scoreO");
 
@@ -21,25 +20,12 @@ const resetScoreBtn = document.getElementById("resetScoreBtn");
 // GAME VARIABLES
 // ==========================================
 
-// 9 empty positions
-let board = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-];
+let board = ["", "", "", "", "", "", "", "",];
 
-// First player is X
 let currentPlayer = "X";
 
-// Game is active
 let gameActive = true;
 
-// Scores
 let xScore = 0;
 let oScore = 0;
 
@@ -68,34 +54,37 @@ const winningCombinations = [
 
 
 // ==========================================
-// CELL CLICK FUNCTION
+// CELL CLICK
 // ==========================================
 
 function handleCellClick(event) {
 
-    // Get clicked cell
-    const cell = event.target;
+    const cell = event.currentTarget;
 
-    // Get cell index
-    const index = Number(cell.getAttribute("data-index"));
+    const index = Number(cell.dataset.index);
 
 
-    // Do nothing if:
-    // 1. Cell is already filled
-    // 2. Game has ended
-
-    if (board[index] !== "" || !gameActive) {
+    // Don't allow clicking occupied cells
+    if (board[index] !== "") {
         return;
     }
 
 
-    // Put current player's symbol
+    // Don't allow clicking after game ends
+    if (!gameActive) {
+        return;
+    }
+
+
+    // Store player's move
     board[index] = currentPlayer;
 
+
+    // Display player's symbol
     cell.textContent = currentPlayer;
 
 
-    // Add X or O class
+    // Add correct CSS class
     if (currentPlayer === "X") {
 
         cell.classList.add("x");
@@ -107,43 +96,35 @@ function handleCellClick(event) {
     }
 
 
-    // Check result
+    // Check game
     checkResult();
 }
 
 
 // ==========================================
-// CHECK GAME RESULT
+// CHECK RESULT
 // ==========================================
 
 function checkResult() {
 
-    let winnerFound = false;
+    let winningCombination = null;
 
 
-    // Check every winning combination
-    for (let combination of winningCombinations) {
+    // Check all combinations
+    for (const combination of winningCombinations) {
 
         const a = combination[0];
         const b = combination[1];
         const c = combination[2];
 
 
-        // Check whether three cells are equal
         if (
             board[a] !== "" &&
             board[a] === board[b] &&
             board[a] === board[c]
         ) {
 
-            winnerFound = true;
-
-
-            // Highlight winning cells
-            cells[a].classList.add("winning-cell");
-            cells[b].classList.add("winning-cell");
-            cells[c].classList.add("winning-cell");
-
+            winningCombination = combination;
 
             break;
         }
@@ -154,18 +135,28 @@ function checkResult() {
     // WINNER
     // ======================================
 
-    if (winnerFound) {
+    if (winningCombination !== null) {
 
         gameActive = false;
 
 
+        // Highlight winning cells
+        winningCombination.forEach(function(index) {
+
+            cells[index].classList.add("winning-cell");
+
+        });
+
+
+        // Update score
         if (currentPlayer === "X") {
 
             xScore++;
 
             scoreX.textContent = xScore;
 
-            turnText.textContent = "🎉 Player X Wins!";
+            turnText.textContent =
+                "🎉 Player X Wins!";
 
         } else {
 
@@ -173,7 +164,8 @@ function checkResult() {
 
             scoreO.textContent = oScore;
 
-            turnText.textContent = "🎉 Player O Wins!";
+            turnText.textContent =
+                "🎉 Player O Wins!";
 
         }
 
@@ -190,7 +182,8 @@ function checkResult() {
 
         gameActive = false;
 
-        turnText.textContent = "🤝 Game Draw!";
+        turnText.textContent =
+            "🤝 Game Draw!";
 
         return;
     }
@@ -200,31 +193,26 @@ function checkResult() {
     // CHANGE PLAYER
     // ======================================
 
-    if (currentPlayer === "X") {
-
-        currentPlayer = "O";
-
-    } else {
-
-        currentPlayer = "X";
-
-    }
+    currentPlayer =
+        currentPlayer === "X"
+            ? "O"
+            : "X";
 
 
-    // Update turn text
     turnText.textContent =
         "Player " + currentPlayer + "'s Turn";
 }
 
 
 // ==========================================
-// RESTART GAME
+// RESTART CURRENT GAME
 // ==========================================
 
 function restartGame() {
 
-    // Empty the board
+    // Clear board
     board = [
+        "",
         "",
         "",
         "",
@@ -236,15 +224,15 @@ function restartGame() {
     ];
 
 
-    // Start with X
+    // X starts again
     currentPlayer = "X";
 
 
-    // Activate game
+    // Enable game
     gameActive = true;
 
 
-    // Clear every cell
+    // Clear all cells
     cells.forEach(function(cell) {
 
         cell.textContent = "";
@@ -258,8 +246,9 @@ function restartGame() {
     });
 
 
-    // Reset turn message
-    turnText.textContent = "Player X's Turn";
+    // Update message
+    turnText.textContent =
+        "Player X's Turn";
 }
 
 
@@ -269,26 +258,23 @@ function restartGame() {
 
 function resetScore() {
 
-    // Reset X score
+    // Reset scores
     xScore = 0;
-
-    // Reset O score
     oScore = 0;
 
 
-    // Display zero
+    // Update display
     scoreX.textContent = "0";
-
     scoreO.textContent = "0";
 
 
-    // Also restart board
+    // Restart board
     restartGame();
 }
 
 
 // ==========================================
-// ADD CLICK EVENTS TO CELLS
+// CELL EVENTS
 // ==========================================
 
 cells.forEach(function(cell) {
