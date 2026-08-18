@@ -1,0 +1,296 @@
+/* ================================
+   TIC TAC TOE - STYLE.CSS
+   ================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #141e30, #243b55);
+
+    color: white;
+}
+
+
+/* Main Game Container */
+
+.game-container {
+    width: 95%;
+    max-width: 420px;
+
+    text-align: center;
+
+    padding: 25px;
+
+    background: rgba(255, 255, 255, 0.1);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Game Title */
+
+h1 {
+    margin-bottom: 10px;
+
+    font-size: 38px;
+
+    font-weight: bold;
+}
+
+
+/* Turn Text */
+
+.turn {
+    font-size: 20px;
+
+    margin: 15px 0;
+
+    font-weight: bold;
+}
+
+
+/* ================================
+   SCORE BOARD
+   ================================ */
+
+.score-board {
+    display: flex;
+
+    justify-content: space-around;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 18px;
+}
+
+.score {
+    padding: 10px 15px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border-radius: 10px;
+
+    min-width: 120px;
+}
+
+
+/* ================================
+   GAME BOARD
+   ================================ */
+
+.board {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    width: 100%;
+
+    max-width: 330px;
+
+    margin: auto;
+}
+
+
+/* Individual Cell */
+
+.cell {
+    aspect-ratio: 1 / 1;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #222;
+
+    font-size: 55px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* Cell Hover */
+
+.cell:hover {
+    transform: scale(1.04);
+
+    background: #eeeeee;
+}
+
+
+/* X */
+
+.cell.x {
+    color: #e63946;
+}
+
+
+/* O */
+
+.cell.o {
+    color: #2196f3;
+}
+
+
+/* Winning Cells */
+
+.winning-cell {
+    background: #90ee90 !important;
+
+    color: #111 !important;
+
+    animation: winner 0.5s ease-in-out;
+}
+
+
+/* Winner Animation */
+
+@keyframes winner {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+.buttons {
+    margin-top: 25px;
+}
+
+
+button.control {
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    margin: 5px;
+
+    background: white;
+
+    color: #222;
+
+    transition: 0.2s;
+}
+
+
+/* Button Hover */
+
+button.control:hover {
+    background: #ddd;
+
+    transform: translateY(-2px);
+}
+
+
+/* Button Click */
+
+button.control:active {
+    transform: scale(0.95);
+}
+
+
+/* ================================
+   MOBILE RESPONSIVE
+   ================================ */
+
+@media (max-width: 500px) {
+
+    .game-container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .turn {
+        font-size: 18px;
+    }
+
+    .cell {
+        font-size: 45px;
+    }
+
+    .score-board {
+        font-size: 15px;
+    }
+
+    .score {
+        min-width: 100px;
+
+        padding: 8px;
+    }
+
+    button.control {
+        font-size: 14px;
+
+        padding: 10px 15px;
+    }
+}
+
+
+/* Small Phones */
+
+@media (max-width: 350px) {
+
+    .game-container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .cell {
+        font-size: 38px;
+    }
+
+    .score {
+        min-width: 90px;
+    }
+
+}
