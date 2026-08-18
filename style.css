@@ -5,21 +5,11 @@
 }
 
 :root {
-    --bg-dark: #080b18;
-    --bg-light: #151a32;
-    --card: rgba(255, 255, 255, 0.08);
-    --card-border: rgba(255, 255, 255, 0.15);
-    --text: #ffffff;
-    --muted: #b8bfd8;
-    --x-color: #ff4d6d;
-    --o-color: #35a7ff;
-    --win-color: #28e98a;
+    --x-color: #ff477e;
+    --o-color: #32a8ff;
+    --win-color: #25e88a;
+    --white: #ffffff;
 }
-
-
-/* ==========================================
-   BODY
-   ========================================== */
 
 body {
     min-height: 100vh;
@@ -30,37 +20,31 @@ body {
 
     padding: 20px;
 
-    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    color: var(--white);
 
     background:
         radial-gradient(
-            circle at 15% 20%,
-            rgba(255, 77, 109, 0.18),
+            circle at 10% 20%,
+            rgba(255, 71, 126, 0.20),
             transparent 30%
         ),
         radial-gradient(
-            circle at 85% 80%,
-            rgba(53, 167, 255, 0.18),
+            circle at 90% 80%,
+            rgba(50, 168, 255, 0.20),
             transparent 30%
         ),
         linear-gradient(
             135deg,
-            var(--bg-dark),
-            var(--bg-light)
+            #070b18,
+            #101936,
+            #090d1c
         );
-
-    overflow-x: hidden;
 }
 
 
-/* ==========================================
-   MAIN GAME CONTAINER
-   ========================================== */
+/* GAME CONTAINER */
 
 .game-container {
     width: 100%;
@@ -70,16 +54,9 @@ body {
 
     text-align: center;
 
-    position: relative;
+    background: rgba(255, 255, 255, 0.08);
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255, 255, 255, 0.11),
-            rgba(255, 255, 255, 0.035)
-        );
-
-    border: 1px solid var(--card-border);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 
     border-radius: 28px;
 
@@ -87,41 +64,17 @@ body {
     -webkit-backdrop-filter: blur(18px);
 
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px rgba(255, 255, 255, 0.1);
 
-    animation: containerAppear 0.7s ease;
+    animation: appear 0.6s ease;
 }
 
 
-/* Top shine */
-
-.game-container::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 12%;
-
-    width: 76%;
-    height: 1px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.6),
-        transparent
-    );
-}
-
-
-/* ==========================================
-   TITLE
-   ========================================== */
+/* TITLE */
 
 h1 {
-    margin-bottom: 8px;
+    margin-bottom: 18px;
 
     font-size: 42px;
 
@@ -133,7 +86,7 @@ h1 {
         linear-gradient(
             90deg,
             #ffffff,
-            #8fd3ff,
+            #72c8ff,
             #ffffff
         );
 
@@ -141,89 +94,45 @@ h1 {
     background-clip: text;
 
     color: transparent;
-
-    text-shadow:
-        0 0 25px rgba(255, 255, 255, 0.15);
-
-    animation: titleGlow 3s ease-in-out infinite;
 }
 
 
-/* ==========================================
-   TURN TEXT
-   ========================================== */
-
-.turn {
-    display: inline-block;
-
-    margin: 12px 0 20px;
-
-    padding: 8px 18px;
-
-    border-radius: 30px;
-
-    color: var(--muted);
-
-    font-size: 17px;
-
-    font-weight: 700;
-
-    background: rgba(255, 255, 255, 0.06);
-
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-
-/* ==========================================
-   SCORE BOARD
-   ========================================== */
+/* SCORE */
 
 .score-board {
     display: flex;
 
     justify-content: center;
 
-    gap: 14px;
+    gap: 12px;
 
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 
 .score {
-    min-width: 145px;
+    flex: 1;
 
-    padding: 12px 16px;
+    padding: 12px 10px;
 
-    border-radius: 16px;
+    border-radius: 15px;
 
-    font-size: 16px;
+    font-size: 15px;
 
-    font-weight: 700;
+    font-weight: bold;
 
-    background:
-        rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.07);
 
     border: 1px solid rgba(255, 255, 255, 0.1);
 
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-    transition: 0.25s ease;
+    transition: 0.2s;
 }
 
 .score:first-child {
     color: var(--x-color);
-
-    box-shadow:
-        0 0 20px rgba(255, 77, 109, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .score:last-child {
     color: var(--o-color);
-
-    box-shadow:
-        0 0 20px rgba(53, 167, 255, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .score:hover {
@@ -231,13 +140,33 @@ h1 {
 }
 
 
-/* ==========================================
-   GAME BOARD
-   ========================================== */
+/* TURN */
+
+.turn {
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+    padding: 8px 18px;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    color: #dce5ff;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* BOARD */
 
 .board {
     width: 100%;
-
     max-width: 360px;
 
     margin: auto;
@@ -246,33 +175,26 @@ h1 {
 
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 
     gap: 10px;
 
     border-radius: 22px;
 
-    background:
-        rgba(0, 0, 0, 0.16);
+    background: rgba(0, 0, 0, 0.2);
 
     border: 1px solid rgba(255, 255, 255, 0.08);
-
-    box-shadow:
-        inset 0 0 25px rgba(0, 0, 0, 0.15);
 }
 
 
-/* ==========================================
-   CELLS
-   ========================================== */
+/* CELLS */
 
 .cell {
-    position: relative;
+    width: 100%;
 
     aspect-ratio: 1 / 1;
 
-    border: 0;
+    border: none;
 
     border-radius: 17px;
 
@@ -280,10 +202,10 @@ h1 {
         linear-gradient(
             145deg,
             #ffffff,
-            #e8edf5
+            #e4eaf4
         );
 
-    color: #172033;
+    color: #151a2d;
 
     font-size: 58px;
 
@@ -291,122 +213,72 @@ h1 {
 
     cursor: pointer;
 
-    overflow: hidden;
-
     box-shadow:
         0 7px 15px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 white;
+        inset 0 1px white;
 
     transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        transform 0.2s,
+        box-shadow 0.2s;
 }
-
-
-/* Cell shine */
-
-.cell::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: -100%;
-
-    width: 60%;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.5),
-            transparent
-        );
-
-    transform: skewX(-20deg);
-
-    transition: 0.5s;
-}
-
-.cell:hover::before {
-    left: 130%;
-}
-
-
-/* Hover */
 
 .cell:hover {
-    transform: translateY(-4px) scale(1.025);
+    transform: translateY(-4px) scale(1.02);
 
     box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.3);
+        0 12px 25px rgba(0, 0, 0, 0.35);
 }
-
-
-/* Click */
 
 .cell:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
 
-/* ==========================================
-   X
-   ========================================== */
+/* X */
 
 .cell.x {
     color: var(--x-color);
 
     text-shadow:
-        0 0 15px rgba(255, 77, 109, 0.35);
+        0 0 15px rgba(255, 71, 126, 0.4);
 
-    animation: symbolPop 0.25s ease;
+    animation: pop 0.25s ease;
 }
 
 
-/* ==========================================
-   O
-   ========================================== */
+/* O */
 
 .cell.o {
     color: var(--o-color);
 
     text-shadow:
-        0 0 15px rgba(53, 167, 255, 0.35);
+        0 0 15px rgba(50, 168, 255, 0.4);
 
-    animation: symbolPop 0.25s ease;
+    animation: pop 0.25s ease;
 }
 
 
-/* ==========================================
-   WINNING CELLS
-   ========================================== */
+/* WINNING CELL */
 
-.winning-cell {
+.cell.winning-cell {
     background:
         linear-gradient(
             145deg,
-            #37f29a,
-            #17c978
+            #38f49b,
+            #16c979
         ) !important;
 
-    color: #061b12 !important;
+    color: #062016 !important;
 
     box-shadow:
-        0 0 15px rgba(40, 233, 138, 0.55),
-        0 0 35px rgba(40, 233, 138, 0.3),
-        inset 0 0 15px rgba(255, 255, 255, 0.35) !important;
+        0 0 15px rgba(37, 232, 138, 0.6),
+        0 0 35px rgba(37, 232, 138, 0.3);
 
-    animation:
-        winningCell 0.65s ease-in-out infinite alternate;
+    animation: winner 0.6s infinite alternate;
 }
 
 
-/* ==========================================
-   BUTTON AREA
-   ========================================== */
+/* BUTTONS */
 
 .buttons {
     margin-top: 25px;
@@ -417,13 +289,11 @@ h1 {
 
     flex-wrap: wrap;
 
-    gap: 5px;
+    gap: 10px;
 }
 
 
-/* ==========================================
-   CONTROL BUTTONS
-   ========================================== */
+/* CONTROL BUTTON */
 
 button.control {
     padding: 12px 20px;
@@ -432,89 +302,55 @@ button.control {
 
     border-radius: 13px;
 
-    background:
-        rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.09);
 
     color: white;
 
     font-size: 15px;
 
-    font-weight: 700;
+    font-weight: bold;
 
     cursor: pointer;
 
+    transition: 0.2s;
+
     box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.2);
-
-    transition:
-        transform 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+        0 5px 15px rgba(0, 0, 0, 0.25);
 }
-
-
-/* Button hover */
 
 button.control:hover {
+    background: rgba(255, 255, 255, 0.18);
+
     transform: translateY(-3px);
 
-    background:
-        rgba(255, 255, 255, 0.17);
-
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, 0.3);
+        0 9px 20px rgba(0, 0, 0, 0.35);
 }
-
-
-/* Button active */
 
 button.control:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
 
-/* ==========================================
-   ANIMATIONS
-   ========================================== */
+/* ANIMATIONS */
 
-@keyframes containerAppear {
+@keyframes appear {
 
     from {
         opacity: 0;
-
-        transform:
-            translateY(30px)
-            scale(0.95);
+        transform: translateY(25px) scale(0.95);
     }
 
     to {
         opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
+        transform: translateY(0) scale(1);
     }
 }
 
-
-@keyframes titleGlow {
-
-    0%,
-    100% {
-        filter: brightness(1);
-    }
-
-    50% {
-        filter: brightness(1.2);
-    }
-}
-
-
-@keyframes symbolPop {
+@keyframes pop {
 
     0% {
-        transform: scale(0.3);
-
+        transform: scale(0.2);
         opacity: 0;
     }
 
@@ -524,13 +360,11 @@ button.control:active {
 
     100% {
         transform: scale(1);
-
         opacity: 1;
     }
 }
 
-
-@keyframes winningCell {
+@keyframes winner {
 
     from {
         transform: scale(1);
@@ -542,108 +376,55 @@ button.control:active {
 }
 
 
-/* ==========================================
-   TABLET
-   ========================================== */
+/* MOBILE */
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
 
     body {
-        padding: 15px;
+        padding: 12px;
     }
 
     .game-container {
-        padding: 25px 18px;
+        padding: 24px 15px;
 
-        border-radius: 24px;
+        border-radius: 23px;
     }
 
     h1 {
-        font-size: 36px;
+        font-size: 34px;
     }
 
     .board {
-        max-width: 340px;
+        gap: 8px;
+        padding: 8px;
     }
 
     .cell {
-        font-size: 52px;
-    }
-}
-
-
-/* ==========================================
-   MOBILE
-   ========================================== */
-
-@media (max-width: 430px) {
-
-    .game-container {
-        padding: 22px 14px;
-    }
-
-    h1 {
-        font-size: 32px;
-    }
-
-    .turn {
-        font-size: 15px;
-
-        padding: 7px 14px;
-    }
-
-    .score-board {
-        gap: 8px;
+        font-size: 47px;
+        border-radius: 14px;
     }
 
     .score {
-        min-width: 0;
-
-        flex: 1;
-
-        padding: 10px 7px;
-
         font-size: 13px;
-    }
-
-    .board {
-        padding: 8px;
-
-        gap: 8px;
-
-        border-radius: 18px;
-    }
-
-    .cell {
-        border-radius: 14px;
-
-        font-size: 45px;
     }
 
     button.control {
-        padding: 10px 14px;
-
         font-size: 13px;
+        padding: 11px 14px;
     }
 }
 
 
-/* ==========================================
-   VERY SMALL PHONES
-   ========================================== */
+/* SMALL MOBILE */
 
-@media (max-width: 340px) {
+@media (max-width: 350px) {
 
     h1 {
-        font-size: 28px;
+        font-size: 29px;
     }
 
     .cell {
         font-size: 38px;
-    }
-
-    .board {
-        gap: 6px;
     }
 
     .score {
@@ -652,7 +433,6 @@ button.control:active {
 
     button.control {
         padding: 9px 11px;
-
         font-size: 12px;
     }
 }
