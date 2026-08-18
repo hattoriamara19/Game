@@ -5,10 +5,14 @@
 }
 
 :root {
-    --x-color: #ff477e;
-    --o-color: #32a8ff;
-    --win-color: #25e88a;
+    --pink: #ff2d75;
+    --purple: #9b5cff;
+    --blue: #00c8ff;
+    --cyan: #00f5d4;
+    --yellow: #ffe600;
+    --green: #00ff88;
     --white: #ffffff;
+    --dark: #090019;
 }
 
 body {
@@ -26,25 +30,39 @@ body {
 
     background:
         radial-gradient(
-            circle at 10% 20%,
-            rgba(255, 71, 126, 0.20),
-            transparent 30%
+            circle at 10% 10%,
+            #ff006e 0%,
+            transparent 25%
         ),
         radial-gradient(
-            circle at 90% 80%,
-            rgba(50, 168, 255, 0.20),
-            transparent 30%
+            circle at 90% 20%,
+            #7b2cff 0%,
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 20% 90%,
+            #00d9ff 0%,
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            #00ff88 0%,
+            transparent 22%
         ),
         linear-gradient(
             135deg,
-            #070b18,
-            #101936,
-            #090d1c
+            #080018,
+            #12002d,
+            #00152d
         );
+
+    overflow-x: hidden;
 }
 
 
-/* GAME CONTAINER */
+/* ==========================================
+   MAIN CONTAINER
+   ========================================== */
 
 .game-container {
     width: 100%;
@@ -54,57 +72,77 @@ body {
 
     text-align: center;
 
-    background: rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.18),
+            rgba(255, 255, 255, 0.05)
+        );
 
-    border-radius: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px rgba(255, 255, 255, 0.1);
+        0 0 20px rgba(255, 0, 110, 0.25),
+        0 0 50px rgba(0, 200, 255, 0.15),
+        0 25px 70px rgba(0, 0, 0, 0.6);
 
-    animation: appear 0.6s ease;
+    animation: containerIn 0.7s ease;
 }
 
 
-/* TITLE */
+/* ==========================================
+   TITLE
+   ========================================== */
 
 h1 {
     margin-bottom: 18px;
 
-    font-size: 42px;
+    font-size: 44px;
 
     font-weight: 900;
 
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 
     background:
         linear-gradient(
             90deg,
-            #ffffff,
-            #72c8ff,
-            #ffffff
+            #ff2d75,
+            #ffe600,
+            #00f5d4,
+            #00c8ff,
+            #9b5cff
         );
+
+    background-size: 300% 300%;
 
     -webkit-background-clip: text;
     background-clip: text;
 
     color: transparent;
+
+    animation:
+        rainbowText 4s ease infinite;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255,255,255,0.2));
 }
 
 
-/* SCORE */
+/* ==========================================
+   SCORE BOARD
+   ========================================== */
 
 .score-board {
     display: flex;
 
     justify-content: center;
 
-    gap: 12px;
+    gap: 14px;
 
     margin-bottom: 18px;
 }
@@ -112,82 +150,117 @@ h1 {
 .score {
     flex: 1;
 
-    padding: 12px 10px;
+    padding: 13px 10px;
 
-    border-radius: 15px;
+    border-radius: 16px;
 
-    font-size: 15px;
+    font-size: 16px;
 
-    font-weight: bold;
+    font-weight: 800;
 
-    background: rgba(255, 255, 255, 0.07);
+    background:
+        rgba(255, 255, 255, 0.09);
 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
-    transition: 0.2s;
+    transition: 0.25s ease;
 }
+
+
+/* X Score */
 
 .score:first-child {
-    color: var(--x-color);
+    color: #ff4d8d;
+
+    box-shadow:
+        0 0 18px rgba(255, 45, 117, 0.35);
 }
+
+
+/* O Score */
 
 .score:last-child {
-    color: var(--o-color);
+    color: #28d9ff;
+
+    box-shadow:
+        0 0 18px rgba(0, 200, 255, 0.35);
 }
+
 
 .score:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px) scale(1.03);
 }
 
 
-/* TURN */
+/* ==========================================
+   TURN TEXT
+   ========================================== */
 
 .turn {
     display: inline-block;
 
     margin-bottom: 20px;
 
-    padding: 8px 18px;
+    padding: 9px 20px;
 
     border-radius: 30px;
 
-    font-size: 16px;
+    font-size: 17px;
 
-    font-weight: bold;
+    font-weight: 800;
 
-    color: #dce5ff;
+    color: #ffffff;
 
-    background: rgba(255, 255, 255, 0.07);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 45, 117, 0.2),
+            rgba(0, 200, 255, 0.2)
+        );
 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    box-shadow:
+        0 0 20px rgba(155, 92, 255, 0.25);
 }
 
 
-/* BOARD */
+/* ==========================================
+   BOARD
+   ========================================== */
 
 .board {
     width: 100%;
+
     max-width: 360px;
 
     margin: auto;
 
-    padding: 10px;
+    padding: 11px;
 
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
-    gap: 10px;
+    gap: 11px;
 
-    border-radius: 22px;
+    border-radius: 24px;
 
-    background: rgba(0, 0, 0, 0.2);
+    background:
+        rgba(0, 0, 0, 0.25);
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+
+    box-shadow:
+        inset 0 0 25px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(0, 200, 255, 0.12);
 }
 
 
-/* CELLS */
+/* ==========================================
+   CELLS
+   ========================================== */
 
 .cell {
     width: 100%;
@@ -196,16 +269,16 @@ h1 {
 
     border: none;
 
-    border-radius: 17px;
+    border-radius: 18px;
 
     background:
         linear-gradient(
             145deg,
             #ffffff,
-            #e4eaf4
+            #e8f5ff
         );
 
-    color: #151a2d;
+    color: #15002b;
 
     font-size: 58px;
 
@@ -214,71 +287,107 @@ h1 {
     cursor: pointer;
 
     box-shadow:
-        0 7px 15px rgba(0, 0, 0, 0.25),
-        inset 0 1px white;
+        0 7px 15px rgba(0, 0, 0, 0.35),
+        inset 0 2px 0 #ffffff;
 
     transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
+
+
+/* Cell hover */
 
 .cell:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #d7f7ff
+        );
 
     box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.35);
+        0 10px 25px rgba(0, 0, 0, 0.4),
+        0 0 18px rgba(0, 200, 255, 0.25);
 }
+
+
+/* Cell click */
 
 .cell:active {
-    transform: scale(0.94);
+    transform: scale(0.93);
 }
 
 
-/* X */
+/* ==========================================
+   X
+   ========================================== */
 
 .cell.x {
-    color: var(--x-color);
+    color: var(--pink);
 
     text-shadow:
-        0 0 15px rgba(255, 71, 126, 0.4);
+        0 0 5px #ff2d75,
+        0 0 15px #ff2d75,
+        0 0 30px rgba(255, 45, 117, 0.7);
 
-    animation: pop 0.25s ease;
+    animation: symbolPop 0.3s ease;
 }
 
 
-/* O */
+/* ==========================================
+   O
+   ========================================== */
 
 .cell.o {
-    color: var(--o-color);
+    color: var(--blue);
 
     text-shadow:
-        0 0 15px rgba(50, 168, 255, 0.4);
+        0 0 5px #00c8ff,
+        0 0 15px #00c8ff,
+        0 0 30px rgba(0, 200, 255, 0.7);
 
-    animation: pop 0.25s ease;
+    animation: symbolPop 0.3s ease;
 }
 
 
-/* WINNING CELL */
+/* ==========================================
+   WINNING CELLS
+   ========================================== */
 
 .cell.winning-cell {
     background:
         linear-gradient(
-            145deg,
-            #38f49b,
-            #16c979
+            135deg,
+            #00ff88,
+            #00e5ff,
+            #ffe600
         ) !important;
 
-    color: #062016 !important;
+    background-size: 200% 200% !important;
+
+    color: #071b18 !important;
 
     box-shadow:
-        0 0 15px rgba(37, 232, 138, 0.6),
-        0 0 35px rgba(37, 232, 138, 0.3);
+        0 0 10px #00ff88,
+        0 0 25px #00ff88,
+        0 0 50px rgba(0, 255, 136, 0.8),
+        inset 0 0 20px rgba(255,255,255,0.6) !important;
 
-    animation: winner 0.6s infinite alternate;
+    animation:
+        winning 0.7s ease-in-out infinite alternate,
+        winningColors 2s linear infinite;
 }
 
 
-/* BUTTONS */
+/* ==========================================
+   BUTTONS
+   ========================================== */
 
 .buttons {
     margin-top: 25px;
@@ -293,64 +402,121 @@ h1 {
 }
 
 
-/* CONTROL BUTTON */
+/* Control buttons */
 
 button.control {
-    padding: 12px 20px;
+    padding: 13px 21px;
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 
-    border-radius: 13px;
+    border-radius: 14px;
 
-    background: rgba(255, 255, 255, 0.09);
-
-    color: white;
+    color: #ffffff;
 
     font-size: 15px;
 
-    font-weight: bold;
+    font-weight: 800;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    background:
+        linear-gradient(
+            135deg,
+            #ff2d75,
+            #9b5cff
+        );
 
     box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.25);
+        0 5px 18px rgba(255, 45, 117, 0.35);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
 }
+
+
+/* Second button */
+
+button.control:last-child {
+    background:
+        linear-gradient(
+            135deg,
+            #00c8ff,
+            #0066ff
+        );
+
+    box-shadow:
+        0 5px 18px rgba(0, 200, 255, 0.35);
+}
+
+
+/* Button hover */
 
 button.control:hover {
-    background: rgba(255, 255, 255, 0.18);
+    transform:
+        translateY(-4px)
+        scale(1.03);
 
-    transform: translateY(-3px);
+    filter: brightness(1.15);
 
     box-shadow:
-        0 9px 20px rgba(0, 0, 0, 0.35);
+        0 8px 25px rgba(255, 255, 255, 0.25);
 }
+
+
+/* Button click */
 
 button.control:active {
     transform: scale(0.94);
 }
 
 
-/* ANIMATIONS */
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
 
-@keyframes appear {
+@keyframes containerIn {
 
     from {
         opacity: 0;
-        transform: translateY(25px) scale(0.95);
+
+        transform:
+            translateY(30px)
+            scale(0.9);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
-@keyframes pop {
+
+@keyframes rainbowText {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+@keyframes symbolPop {
 
     0% {
         transform: scale(0.2);
+
         opacity: 0;
     }
 
@@ -360,23 +526,39 @@ button.control:active {
 
     100% {
         transform: scale(1);
+
         opacity: 1;
     }
 }
 
-@keyframes winner {
+
+@keyframes winning {
 
     from {
         transform: scale(1);
     }
 
     to {
-        transform: scale(1.05);
+        transform: scale(1.07);
     }
 }
 
 
-/* MOBILE */
+@keyframes winningColors {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+   ========================================== */
 
 @media (max-width: 500px) {
 
@@ -385,37 +567,50 @@ button.control:active {
     }
 
     .game-container {
-        padding: 24px 15px;
+        padding: 25px 15px;
 
-        border-radius: 23px;
+        border-radius: 24px;
     }
 
     h1 {
-        font-size: 34px;
+        font-size: 35px;
     }
 
     .board {
-        gap: 8px;
         padding: 8px;
+
+        gap: 8px;
     }
 
     .cell {
         font-size: 47px;
-        border-radius: 14px;
+
+        border-radius: 15px;
     }
 
     .score {
         font-size: 13px;
+
+        padding: 11px 7px;
+    }
+
+    .turn {
+        font-size: 15px;
+
+        padding: 8px 15px;
     }
 
     button.control {
-        font-size: 13px;
         padding: 11px 14px;
+
+        font-size: 13px;
     }
 }
 
 
-/* SMALL MOBILE */
+/* ==========================================
+   SMALL PHONES
+   ========================================== */
 
 @media (max-width: 350px) {
 
@@ -428,11 +623,12 @@ button.control:active {
     }
 
     .score {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     button.control {
         padding: 9px 11px;
+
         font-size: 12px;
     }
 }
